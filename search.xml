@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>portainer</title>
+      <link href="/2024/05/03/portainer/"/>
+      <url>/2024/05/03/portainer/</url>
+      
+        <content type="html"><![CDATA[<h3 id="1"><a href="#1" class="headerlink" title="1"></a>1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-d <span class="comment">#容器在后台运行</span></span><br><span class="line">-p 9000:9000<span class="comment"># 宿主机9000端口映射容器中的9000端口</span></span><br><span class="line">-v /var/run/docker.sock:/var/run/docker.sock <span class="comment"># 把宿主机的Docker守护进程(docker daemon)默认监听的Unix域套接字挂载到容器中</span></span><br><span class="line">-v /root/portainer:/data <span class="comment"># 把宿主机目录 /root/portainer 挂载到容器 /data 目录；</span></span><br><span class="line">–name dev-portainer <span class="comment"># 指定运行容器的名称；</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>jellyfin</title>
+      <link href="/2024/05/03/jellyfin/"/>
+      <url>/2024/05/03/jellyfin/</url>
+      
+        <content type="html"><![CDATA[<h3 id="docker-cli"><a href="#docker-cli" class="headerlink" title="docker-cli"></a>docker-cli</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --name=Jellyfin \</span><br><span class="line">    --net=host \</span><br><span class="line">    -v /media:/cgbb/video \</span><br><span class="line">    --device=/dev/dri:/dev/dri \</span><br><span class="line">    nyanmisaka/jellyfin:latest</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>docker</title>
+      <link href="/2024/05/03/docker/"/>
+      <url>/2024/05/03/docker/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Debian安装docker"><a href="#Debian安装docker" class="headerlink" title="Debian安装docker"></a>Debian安装docker</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com -o get-docker.sh</span><br><span class="line">sudo sh get-docker.sh</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PVE</title>
+      <link href="/2024/05/03/pve/"/>
+      <url>/2024/05/03/pve/</url>
+      
+        <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h3 id="删除local-lvm存储空间并合并到local中"><a href="#删除local-lvm存储空间并合并到local中" class="headerlink" title="删除local-lvm存储空间并合并到local中"></a>删除local-lvm存储空间并合并到local中</h3><h5 id="1-删除local-lvm存储空间"><a href="#1-删除local-lvm存储空间" class="headerlink" title="1.删除local-lvm存储空间"></a>1.删除local-lvm存储空间</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvremove /dev/pve/data</span><br></pre></td></tr></table></figure><h5 id="2-将local-lvm的空间转移到local"><a href="#2-将local-lvm的空间转移到local" class="headerlink" title="2.将local-lvm的空间转移到local"></a>2.将local-lvm的空间转移到local</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvextend -rl +100%FREE /dev/pve/root</span><br></pre></td></tr></table></figure><h3 id="lxc"><a href="#lxc" class="headerlink" title="lxc"></a>lxc</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lxc.cgroup2.devices.allow: c 226:0 rwm</span><br><span class="line">lxc.cgroup2.devices.allow: c 226:128 rwm</span><br><span class="line">lxc.cgroup2.devices.allow: c 29:0 rwm</span><br><span class="line">lxc.mount.entry: /dev/dri dev/dri none <span class="built_in">bind</span>,optional,create=<span class="built_in">dir</span></span><br><span class="line">lxc.mount.entry: /dev/fb0 dev/fb0 none <span class="built_in">bind</span>,optional,create=file</span><br><span class="line">lxc.apparmor.profile: unconfined</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 家庭服务器，系统 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VSCode</title>
+      <link href="/2024/04/27/VSCode/"/>
+      <url>/2024/04/27/VSCode/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Dijkstra</title>
+      <link href="/2024/04/19/dijkstra/"/>
+      <url>/2024/04/19/dijkstra/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Dijkstra(迪杰斯特拉)算法是一种基于贪心思想来解决单源最短路径问题的算法。</p><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span>;</span><br><span class="line"><span class="type">int</span> n, m, s; <span class="comment">// n:节点数量 m:边权数量 s:源节点</span></span><br><span class="line"><span class="type">int</span> u, v, w; <span class="comment">// u:起点 v:终点 w:边的权值</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>  <span class="comment">// 边的信息</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> v, w;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;node&gt; edge[N]; <span class="comment">// edge:储存边的信息</span></span><br><span class="line"><span class="type">int</span> dis[N], vis[N];   <span class="comment">// dis:最短权值和 vis:节点标记</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">(<span class="type">int</span> s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dis, <span class="number">0x3f</span>, <span class="keyword">sizeof</span> dis); <span class="comment">// 初始化所有权值和为最大值</span></span><br><span class="line">    dis[s] = <span class="number">0</span>;                    <span class="comment">// 源点到源点的位置为0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; i++)    <span class="comment">// n个节点，最后一个节点不需要遍历，n-1次</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u = <span class="number">0</span>;                  <span class="comment">// 相当于min=0x3f3f3f3f,利用不存在的0节点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt; n; j++) <span class="comment">// 遍历与前节点相连的节点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!vis[j] &amp;&amp; dis[j] &lt; dis[u]) <span class="comment">// 寻找与前节点相连并且权值最小的边</span></span><br><span class="line">            &#123;</span><br><span class="line">                u = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[u] = <span class="number">1</span>;             <span class="comment">// 节点u已经过，标记为1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> it : edge[u]) <span class="comment">// 通过节点u遍历相连的节点</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> v = it.v, w = it.w;</span><br><span class="line">            <span class="keyword">if</span> (dis[v] &gt; dis[u] + w) <span class="comment">// 如果旧边权值和&gt;新边权值和(前节点权值和+当前边权值)</span></span><br><span class="line">            &#123;</span><br><span class="line">                dis[v] = dis[u] + w; <span class="comment">// 更新权值和新边权值和</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; s;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;</span><br><span class="line">        edge[u].<span class="built_in">push_back</span>(&#123;v, w&#125;); <span class="comment">// 节点u存在指向节点v的边,边的权值为w</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">dijkstra</span>(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="Dijkstra算法-堆优化"><a href="#Dijkstra算法-堆优化" class="headerlink" title="Dijkstra算法 堆优化"></a>Dijkstra算法 堆优化</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 图论 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 图论 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>test</title>
+      <link href="/2024/04/18/test/"/>
+      <url>/2024/04/18/test/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2024/04/16/hello-world/"/>
+      <url>/2024/04/16/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
